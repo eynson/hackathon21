@@ -12,6 +12,6 @@ y asi poder asegurar una respuesta del servicio.
 Tolerancia de fallos, Mantenibilidad, Escalabilidad
 
 
-##Diagrama de solución
+## Diagrama de solución
 
 ![Diagrama componentes!](./diagrama.drawio.svg "Diagrama de Solución")
