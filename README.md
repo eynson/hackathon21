@@ -1,4 +1,4 @@
-# Propuesta de solución para Hackathon Ceiba 2021
+# Propuesta de solución para Hackathon Ceiba 2021 
 
 ## Descripción de la solución
 
