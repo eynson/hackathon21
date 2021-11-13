@@ -5,5 +5,5 @@ import reactor.core.publisher.Mono;
 
 public interface IInformacionRepositorio {
 
-    public Mono<RespuestaDTO> obtenerInformacionAPI();
+    public Mono<RespuestaDTO> obtenerInformacionAPI(String numeroPeticion);
 }

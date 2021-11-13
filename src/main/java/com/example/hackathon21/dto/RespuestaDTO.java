@@ -1,11 +1,15 @@
 package com.example.hackathon21.dto;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RespuestaDTO {
 
     private String hostname;
@@ -15,7 +19,5 @@ public class RespuestaDTO {
     private String date;
     private int validitySeconds;
     private String token;
-
-
 
 }
