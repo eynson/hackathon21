@@ -2,7 +2,7 @@ FROM gradle:7.2.0-jdk11 as builder
 WORKDIR /usr/src/app
 COPY --chown=gradle:gradle . /usr/src/app
 WORKDIR /usr/src/app
-RUN gradle build
+RUN gradle bootJar
 
 FROM openjdk:11.0.12-jre-slim-buster
 EXPOSE 5000
