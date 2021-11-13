@@ -22,16 +22,11 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
 
     @Override
     public Mono<RespuestaDTO> obtenerInformacionAPI(String numeroPeticion) {
-        return invocarServicio(numeroPeticion)
-                .flatMap(repuesta -> repuesta.bodyToMono(RespuestaDTO.class));
-    }
-
-    private Mono<ClientResponse> invocarServicio(String numeroPeticion) {
         return registrarWebClient().get()
                 .uri(NUMERO, numeroPeticion)
-                .accept(MediaType.APPLICATION_JSON_UTF8)
-                .exchange()
-                .retryWhen(Retry.backoff(3, Duration.ofSeconds(3)));
+                .retrieve()
+                .bodyToMono(RespuestaDTO.class)
+                .retryWhen(Retry.backoff(5, Duration.ofSeconds(2)));
     }
 
     private WebClient registrarWebClient() {
