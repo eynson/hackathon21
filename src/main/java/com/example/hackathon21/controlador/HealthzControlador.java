@@ -16,6 +16,4 @@ public class HealthzControlador {
         return Mono.just(ResponseEntity.ok().build());
     }
 
-
-
 }

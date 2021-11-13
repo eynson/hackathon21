@@ -22,7 +22,6 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
     @Value("${config.base.endpoint}")
     private String url;
 
-
     private Cache<String, RespuestaDTO> caffeineCache;
 
     private static final Logger log = LoggerFactory.getLogger(InformacionRepositorioImpl.class);
@@ -35,15 +34,14 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
     public Mono<RespuestaDTO> obtenerInformacionAPI(String numeroPeticion) {
         RespuestaDTO respuestaDtoCache = caffeineCache.getIfPresent(numeroPeticion);
         if (respuestaDtoCache != null) {
+            log.info("consultando en la cache");
             return Mono.just(respuestaDtoCache);
         } else {
             return registrarWebClient().get()
-                    //.uri(NUMERO, numeroPeticion)
-                    .uri(builder -> builder.queryParam("number", numeroPeticion).build())
-                    .accept(MediaType.APPLICATION_STREAM_JSON)
+                    .uri(builder -> builder.queryParam(NUMERO, numeroPeticion).build())
                     .retrieve()
                     .bodyToMono(RespuestaDTO.class)
-                    .retryWhen(Retry.backoff(3, Duration.ofSeconds(5)))
+                    .retryWhen(Retry.backoff(3, Duration.ofSeconds(10)))
                     .doOnNext( respuesta -> {
                         iniciarCache(respuesta.getValiditySeconds());
                         caffeineCache.put(numeroPeticion, respuesta);
@@ -52,9 +50,6 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
     }
 
     private WebClient registrarWebClient() {
-
-
-
         return WebClient.create(url);
     }
 
