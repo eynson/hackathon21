@@ -27,7 +27,7 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
     private static final Logger log = LoggerFactory.getLogger(InformacionRepositorioImpl.class);
 
     public InformacionRepositorioImpl() {
-        iniciarCache(10);
+        iniciarCache(10); 
     }
 
     @Override
