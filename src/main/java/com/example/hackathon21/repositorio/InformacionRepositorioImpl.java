@@ -19,8 +19,9 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
 
     private static final String NUMERO = "number";
 
-    @Value("${config.base.endpointlocal}")
+    @Value("${config.base.endpoint}")
     private String url;
+
 
     private Cache<String, RespuestaDTO> caffeineCache;
 
@@ -37,7 +38,8 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
             return Mono.just(respuestaDtoCache);
         } else {
             return registrarWebClient().get()
-                    .uri(NUMERO, numeroPeticion)
+                    //.uri(NUMERO, numeroPeticion)
+                    .uri(builder -> builder.queryParam("number", numeroPeticion).build())
                     .accept(MediaType.APPLICATION_STREAM_JSON)
                     .retrieve()
                     .bodyToMono(RespuestaDTO.class)
@@ -50,6 +52,9 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
     }
 
     private WebClient registrarWebClient() {
+
+
+
         return WebClient.create(url);
     }
 
