@@ -49,6 +49,7 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
         }
     }
 
+    
     private WebClient registrarWebClient() {
         return WebClient.create(url);
     }
