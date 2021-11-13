@@ -41,7 +41,7 @@ public class InformacionRepositorioImpl implements IInformacionRepositorio {
                     .uri(builder -> builder.queryParam(NUMERO, numeroPeticion).build())
                     .retrieve()
                     .bodyToMono(RespuestaDTO.class)
-                    .retryWhen(Retry.backoff(8, Duration.ofSeconds(4)))
+                    .retryWhen(Retry.backoff(5, Duration.ofSeconds(4)))
                     .doOnNext( respuesta -> {
                         iniciarCache(respuesta.getValiditySeconds());
                         caffeineCache.put(numeroPeticion, respuesta);
